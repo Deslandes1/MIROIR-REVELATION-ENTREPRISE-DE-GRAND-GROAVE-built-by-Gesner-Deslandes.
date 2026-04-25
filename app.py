@@ -13,6 +13,7 @@ st.set_page_config(
 )
 
 # ========== SUPABASE SETUP ==========
+# Use nested secrets as defined in .streamlit/secrets.toml
 SUPABASE_URL = st.secrets["supabase"]["url"]
 SUPABASE_KEY = st.secrets["supabase"]["key"]
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
@@ -76,7 +77,6 @@ def login_page():
             username = st.text_input("👤 Nom d'utilisateur")
             password = st.text_input("🔒 Mot de passe", type="password")
             if st.form_submit_button("🔐 Se connecter", use_container_width=True):
-                # Simple authentication – change as needed
                 if username == "miroir" and password == "grandgoave2026":
                     st.session_state.authenticated = True
                     st.rerun()
@@ -115,7 +115,6 @@ def main_dashboard():
     </div>
     """, unsafe_allow_html=True)
     
-    # Tabs
     tabs = st.tabs(["📦 Ventes", "💇 Coupe (Cartes 250 HTG)", "💰 Moncash & Natcash", "📊 Rapports"])
     
     # ---------- TAB 0: SALES ----------
@@ -211,7 +210,7 @@ def main_dashboard():
         else:
             st.info("Aucune transaction aujourd'hui.")
     
-    # ---------- TAB 3: REPORTS (DOWNLOAD) ----------
+    # ---------- TAB 3: REPORTS ----------
     with tabs[3]:
         st.subheader("Télécharger les rapports")
         report_type = st.selectbox("Type de rapport", ["Ventes", "Cartes de coupe", "Transactions"])
@@ -233,7 +232,6 @@ def main_dashboard():
                 st.download_button("Télécharger CSV", csv, "transactions.csv", "text/csv")
             st.success("Rapport prêt !")
     
-    # Footer
     st.markdown("""
     <div class="footer">
         <p>Construit par <strong>Gesner Deslandes</strong> pour GlobalInternet.py</p>
