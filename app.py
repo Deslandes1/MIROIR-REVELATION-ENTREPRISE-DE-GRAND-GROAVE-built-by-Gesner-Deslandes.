@@ -1,9 +1,14 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import pandas as pd
 from datetime import datetime
-from supabase import create_client, Client
 import os
+
+# Try to import supabase, show error if missing
+try:
+    from supabase import create_client, Client
+except ImportError:
+    st.error("❌ Le package 'supabase' n'est pas installé. Veuillez vérifier que 'requirements.txt' contient 'supabase>=1.0.3'.")
+    st.stop()
 
 # ========== PAGE CONFIG ==========
 st.set_page_config(
@@ -14,9 +19,13 @@ st.set_page_config(
 
 # ========== SUPABASE SETUP ==========
 # Use nested secrets as defined in .streamlit/secrets.toml
-SUPABASE_URL = st.secrets["supabase"]["url"]
-SUPABASE_KEY = st.secrets["supabase"]["key"]
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+try:
+    SUPABASE_URL = st.secrets["supabase"]["url"]
+    SUPABASE_KEY = st.secrets["supabase"]["key"]
+    supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+except Exception as e:
+    st.error(f"❌ Erreur de connexion à Supabase : {e}")
+    st.stop()
 
 # ========== SESSION STATE ==========
 if "authenticated" not in st.session_state:
