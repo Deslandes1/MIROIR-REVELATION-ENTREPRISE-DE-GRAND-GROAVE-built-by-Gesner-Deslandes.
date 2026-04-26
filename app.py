@@ -85,18 +85,30 @@ def login_page():
         st.markdown("📞 (509) 4738-5663 | ✉️ deslandes78@gmail.com")
 
 def main_dashboard():
-    # Logo (Fo) - place image file in same directory or use URL
-    try:
-        st.sidebar.image("Fo_Ken_Logo.png", width=200)  # Local logo file
-    except:
-        st.sidebar.image("https://raw.githubusercontent.com/Deslandes1/MIROIR-REVELATION-ENTREPRISE-DE-GRAND-GROAVE-built-by-Gesner-Deslandes./main/IMG_1559.jpg", width=200)
-    st.sidebar.markdown("## Miroir Revelation")
-    if st.sidebar.button("🚪 Déconnexion"):
-        st.session_state.authenticated = False
-        st.rerun()
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("📞 (509) 4738-5663")
-    st.sidebar.markdown("✉️ deslandes78@gmail.com")
+    # ---------- SIDEBAR WITH GLOBALINTERNET.PY INFO ----------
+    with st.sidebar:
+        # Globe logo and company name
+        st.markdown("## 🌐 **GlobalInternet.py**")
+        st.markdown("---")
+        # Founder info
+        st.markdown("### 👨‍💻 **Gesner Deslandes**")
+        st.markdown("📞 (509) 4738-5663")
+        st.markdown("✉️ deslandes78@gmail.com")
+        st.markdown("---")
+        
+        # Original Miroir Revelation Logo
+        try:
+            st.image("Fo_Ken_Logo.png", width=200)  # Local logo file
+        except:
+            st.image("https://raw.githubusercontent.com/Deslandes1/MIROIR-REVELATION-ENTREPRISE-DE-GRAND-GROAVE-built-by-Gesner-Deslandes./main/IMG_1559.jpg", width=200)
+        st.markdown("## Miroir Revelation")
+        
+        if st.button("🚪 Déconnexion"):
+            st.session_state.authenticated = False
+            st.rerun()
+        st.markdown("---")
+        st.markdown("📞 (509) 4738-5663")
+        st.markdown("✉️ deslandes78@gmail.com")
 
     st.markdown("""
     <div class="hero">
