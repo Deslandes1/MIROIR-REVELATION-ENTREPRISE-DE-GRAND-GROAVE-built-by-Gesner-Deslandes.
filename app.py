@@ -71,7 +71,6 @@ def login_page():
         st.markdown("""
         <div style="text-align: center;">
             <h1 style="color: #00209f;">🇭🇹 MIROIR REVELATION</h1>
-            <h2 style="color: #cf0921;">ENTREPRISE DE GRAND GOAVE</h2>
         </div>
         """, unsafe_allow_html=True)
         with st.form("login"):
@@ -86,7 +85,11 @@ def login_page():
         st.markdown("📞 (509) 4738-5663 | ✉️ deslandes78@gmail.com")
 
 def main_dashboard():
-    st.sidebar.image("https://flagcdn.com/ht.svg", width=80)
+    # Logo (Fo) - place image file in same directory or use URL
+    try:
+        st.sidebar.image("Fo_Ken_Logo.png", width=200)  # Local logo file
+    except:
+        st.sidebar.image("https://raw.githubusercontent.com/Deslandes1/MIROIR-REVELATION-ENTREPRISE-DE-GRAND-GROAVE-built-by-Gesner-Deslandes./main/IMG_1559.jpg", width=200)
     st.sidebar.markdown("## Miroir Revelation")
     if st.sidebar.button("🚪 Déconnexion"):
         st.session_state.authenticated = False
@@ -139,7 +142,7 @@ def main_dashboard():
     with tabs[1]:
         st.subheader("Donner une carte de coupe (250 HTG)")
         with st.form("haircut"):
-            barber = st.selectbox("Coiffeur", ["Fo", "Can"])
+            barber = st.selectbox("Coiffeur", ["Fo", "Ken"])  # Updated to Fo/Ken
             if st.form_submit_button("Donner la carte"):
                 data = {
                     "barber": barber,
@@ -157,9 +160,9 @@ def main_dashboard():
             df = pd.DataFrame(cards)
             st.dataframe(df[["barber", "card_amount"]])
             fo_count = len([c for c in cards if c["barber"]=="Fo"])
-            can_count = len([c for c in cards if c["barber"]=="Can"])
+            ken_count = len([c for c in cards if c["barber"]=="Ken"])
             st.metric("Cartes Fo", fo_count)
-            st.metric("Cartes Can", can_count)
+            st.metric("Cartes Ken", ken_count)
         else:
             st.info("Aucune carte aujourd'hui.")
 
